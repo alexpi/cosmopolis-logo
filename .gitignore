@@ -1,0 +1,9 @@
+.vscode
+node_modules
+.tmp
+.ftpconfig
+.log
+.eslintcache
+public
+.env
+.netlify
