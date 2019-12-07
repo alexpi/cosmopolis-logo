@@ -1,4 +1,4 @@
-const { tween, listen, styler, parallel, keyframes, easing, chain, timeline } = popmotion;
+const { tween, listen, styler, parallel, keyframes, easing, timeline } = popmotion;
 const animatedLogo = document.querySelector('.animated-logo');
 
 const elems = {
@@ -47,7 +47,7 @@ const elems = {
 	i: {
 		blue: styler(animatedLogo.querySelector('#I .blue')),
 		red: styler(animatedLogo.querySelector('#I .red')),
-		duration: 500,
+		duration: 360,
 		mult: 16
 	},
 	s2: {
@@ -128,70 +128,40 @@ listen(animatedLogo, 'mouseover touchstart')
 		if (e.target.id === 'O') {
 			if (animating(e)) return;
 
-			const rs = [randomSize(20, 10), randomSize(20, 10), randomSize(20, 10), randomSize(20, 10)];
+			const rs = [];
+			for (let i = 0; i < 4; i++) {	rs.push(randomSize(20, 10)) };
+
+			const tweenCircle = (circle, i) => {
+				return tween({
+					from: {
+						x: circle.get('x'),
+						y: circle.get('y'),
+						rx: circle.get('rx'),
+						ry: circle.get('ry')
+					},
+					to: { x: randomPos(elems.o.mult), y: randomPos(elems.o.mult), rx: rs[i], ry: rs[i] },
+					duration, ease, flip
+				});
+			};
+
+			const updateItem = (circle, prop) => {
+				circle.set('x', prop.x);
+				circle.set('y', prop.y);
+				circle.set('rx', prop.rx);
+				circle.set('ry', prop.ry);
+			};
 
 			parallel(
-				tween({ // top circle
-					from: {
-						x: elems.o.top.get('x'),
-						y: elems.o.top.get('y'),
-						rx: elems.o.top.get('rx'),
-						ry: elems.o.top.get('ry')
-					},
-					to: { x: randomPos(elems.o.mult), y: randomPos(elems.o.mult),	rx: rs[0],	ry: rs[0] },
-					duration, ease, flip
-				}),
-				tween({ // bottom circle
-					from: {
-						x: elems.o.bottom.get('x'),
-						y: elems.o.bottom.get('y'),
-						rx: elems.o.bottom.get('rx'),
-						ry: elems.o.bottom.get('ry')
-					},
-					to: { x: randomPos(elems.o.mult), y: randomPos(elems.o.mult), rx: rs[1], ry: rs[1] },
-					duration, ease, flip
-				}),
-				tween({ // left circle
-					from: {
-						x: elems.o.left.get('x'),
-						y: elems.o.left.get('y'),
-						rx: elems.o.left.get('rx'),
-						ry: elems.o.left.get('ry')
-					},
-					to: { x: randomPos(elems.o.mult), y: randomPos(elems.o.mult), rx: rs[2], ry: rs[2] },
-					duration, ease, flip
-				}),
-				tween({ // right circle
-					from: {
-						x: elems.o.right.get('x'),
-						y: elems.o.right.get('y'),
-						rx: elems.o.right.get('rx'),
-						ry: elems.o.right.get('ry')
-					},
-					to: { x: randomPos(elems.o.mult), y: randomPos(elems.o.mult), rx: rs[3], ry: rs[3] },
-					duration, ease, flip
-				})
+				tweenCircle(elems.o.top, 0),
+				tweenCircle(elems.o.bottom, 1),
+				tweenCircle(elems.o.left, 2),
+				tweenCircle(elems.o.right, 3)
 			).start({
 				update: ([top, bottom, left, right]) => {
-					elems.o.top.set('x', top.x);
-					elems.o.top.set('y', top.y);
-					elems.o.top.set('rx', top.rx);
-					elems.o.top.set('ry', top.ry);
-
-					elems.o.bottom.set('x', bottom.x);
-					elems.o.bottom.set('y', bottom.y);
-					elems.o.bottom.set('rx', bottom.rx);
-					elems.o.bottom.set('ry', bottom.ry);
-
-					elems.o.left.set('x', left.x);
-					elems.o.left.set('y', left.y);
-					elems.o.left.set('rx', left.rx);
-					elems.o.left.set('ry', left.ry);
-
-					elems.o.right.set('x', right.x);
-					elems.o.right.set('y', right.y);
-					elems.o.right.set('rx', right.rx);
-					elems.o.right.set('ry', right.ry);
+					updateItem(elems.o.top, top);
+					updateItem(elems.o.bottom, bottom);
+					updateItem(elems.o.left, left);
+					updateItem(elems.o.right, right);
 				},
 				complete: () => complete(e)
 			});
@@ -364,8 +334,8 @@ listen(animatedLogo, 'mouseover touchstart')
 			).start({
 				update: ([opacity, blue, red]) => {
 					elems.i.blue.set('opacity', opacity)
-					elems.i.blue.set('x', blue)
 					elems.i.red.set('opacity', opacity)
+					elems.i.blue.set('x', blue)
 					elems.i.red.set('x', red)
 				},
 				complete: () => complete(e)
