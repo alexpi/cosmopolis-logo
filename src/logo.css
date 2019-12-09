@@ -25,9 +25,13 @@ html {
 .animated-logo > * {
 	--multiplicator: 8px;
 	fill: none;
-	height: calc((var(--logoWidth) / 73) * var(--multiplicator)); /* or 1.1vw */
-	margin: 0 0.5vw; /* set individual margins */
+	height: calc((var(--logoWidth) / 73) * var(--multiplicator));
+	margin: 0 0.5vw;
 	overflow: visible;
+}
+
+.animated-logo svg > * {
+	pointer-events: none;
 }
 
 .animated-logo .stroke {
@@ -35,7 +39,7 @@ html {
 }
 
 .animated-logo .fill {
-  fill: var(--mainColor);
+	fill: var(--mainColor);
 }
 
 .animated-logo .blue {
@@ -67,26 +71,9 @@ html {
 	}
 }
 
-#C, #O, #P {
-	margin: 0;
-}
-
-#S {
-	margin-left: 0.2vw;
-}
-
-#O2 {
-	margin: 0 0 0 0.2vw;
-}
-
-#O3 {
-	margin-left: 0.2vw;
-}
-
-#L {
-	margin-left: 0;
-}
-
-#I {
-	margin: 0 0.6vw 0 0.4vw;
-}
+#C, #O, #P { margin: 0; }
+#S { margin-left: 0.2vw; }
+#O2 { margin: 0 0 0 0.2vw; }
+#O3 { margin-left: 0.2vw; }
+#L { margin-left: 0; }
+#I { margin: 0 0.6vw 0 0.4vw; }
