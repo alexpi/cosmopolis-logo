@@ -1,20 +1,16 @@
-html {
-  background: #FADD00;
-}
-
 .container {
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 	margin: auto;
 }
 
-.animated-logo {
+.animated-logo-main {
 	width: 260px;
 }
 
-.animated-logo {
+.animated-logo-main {
 	--logoWidth: 630;
 	display: flex;
 	justify-content: center;
@@ -22,7 +18,7 @@ html {
 	flex-wrap: wrap;
 }
 
-.animated-logo > * {
+.animated-logo-main > * {
 	--multiplicator: 8px;
 	fill: none;
 	height: calc((var(--logoWidth) / 73) * var(--multiplicator));
@@ -30,44 +26,95 @@ html {
 	overflow: visible;
 }
 
-.animated-logo svg > * {
+.animated-logo-main svg > * {
 	pointer-events: none;
 }
 
-.animated-logo .stroke {
+.animated-logo-main .stroke {
   stroke: var(--mainColor);
 }
 
-.animated-logo .fill {
+.animated-logo-main .fill {
 	fill: var(--mainColor);
 }
 
-.animated-logo .blue {
+.animated-logo-main .blue {
 	fill: #44C7FF;
 	background-blend-mode: multiply;
 }
 
-.animated-logo .red {
+.animated-logo-main .red {
 	fill: #FF1686;
 	background-blend-mode: multiply;
 }
 
+.animated-logo-text {
+	display: inline-block;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	letter-spacing: -0.12em;
+	color: var(--mainColor);
+	width: 100%;
+	margin: 4px 0 auto;
+}
+
+.animated-logo-text p {
+	font-size: 40px;
+	margin: 0;
+	text-align: center;
+}
+
+.animated-logo-text span {
+	display: block;
+	line-height: 0.9;
+	margin: 0;
+}
+
+.animated-logo-text span:nth-of-type(2n) {
+	font-size: 0.7em;
+}
+
+.animated-logo-text span:nth-of-type(3n) {
+	font-size: 0.5em;
+	margin-top: 2px;
+}
+
 @media (min-width: 500px) {
-	.animated-logo { width: 360px; }
-	.animated-logo > * { --multiplicator: 12px;	}
+	.animated-logo-main { width: 360px; }
+	.animated-logo-main > * { --multiplicator: 12px;	}
+
+	.animated-logo-text p {
+		font-size: 46px;
+	}
 }
 
 @media (min-width: 728px) {
-	.animated-logo { width: 564px; }
+	.animated-logo-main { width: 564px; }
+
+	.animated-logo-text p {
+		font-size: 52px;
+		text-align: left;
+		margin-left: 32%;
+	}
 }
 
 @media (min-width: 1078px) {
-	.animated-logo { width: 100%; }
+	.animated-logo-main { width: 100%; }
+
+	.animated-logo-text p {
+		font-size: 38px;
+		margin-left: 29.9%;
+	}
 }
 
 @media (min-width: 1200px) {
-	.animated-logo > * {
-		--multiplicator: calc( 12px + (18 - 12) * (100vw - 1200px) / (1600 - 1200) );
+	.animated-logo-main > * {
+		--multiplicator: calc(12px + (18 - 12) * (100vw - 1200px) / (1600 - 1200));
+	}
+
+	.animated-logo-text p {
+		font-size: calc(38px + (56.5 - 38) * (100vw - 1200px) / (1600 - 1200));
+		letter-spacing: -0.04em;
 	}
 }
 
